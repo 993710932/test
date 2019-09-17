@@ -1,6 +1,6 @@
 # Kairosdb 之 KairosDB Client 日常使用总结
-##基本概念
-首先介绍一下Kairosdb的几个概念
+
+基本概念
 
 Metric:  度量，相当于关系型数据库中的 table。
 
@@ -15,5 +15,109 @@ Data point:  数据点，相当于关系型数据库中的 row。
 * A measurement. Contains the time when the measurement occurred and its value.
 
 Timestamp：时间戳，代表数据点产生的时间。
+
+关系：
+Metric包含多个Tag，Tag包含多个DataPoint，DataPoint对应一个Timestamp和一个value。
+同一个timestamp可以对应两个value，一个为long类型，一个为double类型。
+
+常用类
+MetricBuilder
+* Builder used to create the JSON to push metrics to KairosDB.
+
+QueryBuilder
+ * Builder used to create the JSON to query KairosDB.
+ * <br>
+ * <br>
+ * The query returns the data points for the given metrics for the specified time range. The time range can
+ * be specified as absolute or relative. Absolute times are a given point in time. Relative times are relative to now.
+ * The end time is not required and defaults to now.
+ * <br>
+ * <br>
+ * For example, if you specify a relative start time of 30 minutes, all matching data points for the last 30 minutes
+ * will be returned. If you specify a relative start time of 30 minutes and a relative end time of 10 minutes, then
+ * all matching data points that occurred between the last 30 minutes up to and including the last 10 minutes are returned.
+ 查询必须有开始时间
+ 开始时间和结束时间是闭区间，就是查询的数据包含开始时间点和结束时间点。
+ [开始时间,结束时间]
+
+
+AggregatorFactory
+聚合工厂，里面包含很多聚合方法
+
+方法
+
+Sending Metrics
+Sending metrics is done by using the MetricBuilder. You simply add a metric, the tags associated with the metric, and the data points.
+
+try(HttpClient client = new HttpClient("http://localhost:8080"))
+{
+	MetricBuilder builder = MetricBuilder.getInstance();
+	builder.addMetric("metric1")
+			.addTag("host", "server1")
+			.addTag("customer", "Acme")
+			.addDataPoint(System.currentTimeMillis(), 10)
+			.addDataPoint(System.currentTimeMillis(), 30L);
+	client.pushMetrics(builder);
+}
+说明：metric至少有一个tag
+1,
+metricBuilder.addMetric(tagName.toUpperCase()).addTag("a","a").addDataPoint(System.currentTimeMillis(),1);
+会插入一个datapoint,
+可通过以下方式查询：
+queryBuilder.setStart(1, TimeUnit.DAYS);
+
+queryBuilder.addMetric("Q").addTag("a","a");
+queryBuilder.addMetric("Q");
+
+2，
+metricBuilder.addMetric(tagName.toUpperCase()).addTag("a","a").addTag("b","b").addDataPoint(System.currentTimeMillis(),1);
+会插入一个datapoint,
+可通过以下方式查询：
+queryBuilder.setStart(1, TimeUnit.DAYS);
+
+queryBuilder.addMetric("Q").addTag("a","a").addTag("b","b");
+queryBuilder.addMetric("Q").addTag("a","a");
+queryBuilder.addMetric("Q").addTag("b","b");
+queryBuilder.addMetric("Q");
+
+基本的插入数据分为两种类型，long，double
+Object a=3;
+metricBuilder.addMetric("Q").addTag("c","c").addDataPoint(System.currentTimeMillis(),1);
+metricBuilder.addMetric("Q").addTag("c","c").addDataPoint(System.currentTimeMillis(),"2");
+metricBuilder.addMetric("Q").addTag("c","c").addDataPoint(System.currentTimeMillis(),a);
+这三种都是插入long类型的，如果同时
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
