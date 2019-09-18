@@ -104,7 +104,7 @@ queryBuilder.addMetric("Q").addAggregator(AggregatorFactory.createSumAggregator(
 # So 一个项目中；最好不要同时用long和double两种类型，要不然同一个点会出现两个数据，会很麻烦的。页面查询的时候不能区分，不过，通过代码查询出来的是能看到value的类型。…………最好统一一种形式，都用double，这样如果值错了也是可以直接用double替换的（删除的效率不高，数据量大了特别明显，尽量别用）。
 
 
-
+聚合器Aggregator 这块儿是个大头儿，里面细节挺多的。
 
 
 
