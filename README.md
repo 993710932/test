@@ -94,7 +94,13 @@ metricBuilder.addMetric("Q").addTag("c","c").addDataPoint(System.currentTimeMill
 metricBuilder.addMetric("Q").addTag("c","c").addDataPoint(System.currentTimeMillis(),a);
 这三种都是插入double类型的，如果同时执行上面三句，最后插入的value为3.0，不是按先后顺序，是取最大值插入的。（感觉莫名其妙，但是多次尝试确实这样，很无奈）
 
+
 同一个时间点上如果同时存在long和double两种类型，查询的时候都会查询出来，且参与聚合。
+metricBuilder.addMetric("Q").addTag("c","c").addDataPoint(long,1);
+metricBuilder.addMetric("Q").addTag("c","c").addDataPoint(long,2.0);
+
+queryBuilder.addMetric("Q").addAggregator(AggregatorFactory.createSumAggregator(1,TimeUnit.DAYS));
+这种聚合调用时，1和2.0都参与，结果会是3.0
 
 
 
