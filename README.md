@@ -94,7 +94,7 @@ metricBuilder.addMetric("Q").addTag("c","c").addDataPoint(System.currentTimeMill
 metricBuilder.addMetric("Q").addTag("c","c").addDataPoint(System.currentTimeMillis(),a);
 这三种都是插入double类型的，如果同时执行上面三句，最后插入的value为3.0，不是按先后顺序，是取最大值插入的。（感觉莫名其妙，但是多次尝试确实这样，很无奈）
 
-同一个时间点上如果同时存在long和double两种类型，查询的时候都会查询出来。至于是不是都参与聚合没验证。
+同一个时间点上如果同时存在long和double两种类型，查询的时候都会查询出来，且参与聚合。
 
 
 
