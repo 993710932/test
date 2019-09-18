@@ -101,7 +101,7 @@ metricBuilder.addMetric("Q").addTag("c","c").addDataPoint(long,2.0);
 
 queryBuilder.addMetric("Q").addAggregator(AggregatorFactory.createSumAggregator(1,TimeUnit.DAYS));
 这种聚合调用时，1和2.0都参与，结果会是3.0
-
+# So 一个项目中；最好不要同时用long和double两种类型，要不然同一个点会出现两个数据，会很麻烦的。页面查询的时候不能区分，不过，通过代码查询出来的是能看到value的类型。…………最好统一一种形式，都用double，这样如果值错了也是可以直接用double替换的（删除的效率不高，数据量大了特别明显，尽量别用）。
 
 
 
