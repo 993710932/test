@@ -129,7 +129,7 @@ metricBuilder.addMetric("metric1").addTag("c","c").addDataPoint(long,2.0);
 <img src="https://github.com/993710932/use-KairosDB-Client/blob/master/metric.jpg"/>
 如图所示，metric，tag，DataPoint的关系大概就是这样，只是个人的逻辑图，并不代表真实的关系。
 
-###查询：
+### 查询：
 
 通过tag1，能查询到DataPoint1和datapoint2，
 通过tag2，能查询到DataPoint1
@@ -139,7 +139,7 @@ metricBuilder.addMetric("metric1").addTag("c","c").addDataPoint(long,2.0);
 通过tag2，tag3，组合能查询到datapoint1
 通过tag1，tag2，tag3，组合能查询到datapoint1.
 
-###删除：
+### 删除：
 
 删除跟查询的对应关系一样。不过只删除datapoint，不删除tag，tag会保留。
 
