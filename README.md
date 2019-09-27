@@ -131,13 +131,13 @@ metricBuilder.addMetric("metric1").addTag("c","c").addDataPoint(long,2.0);
 
 ### 查询：
 
-通过tag1，能查询到DataPoint1和datapoint2，
-通过tag2，能查询到DataPoint1
-通过tag3，能查询到DataPoint1
-通过tag1，tag2，组合能查询到DataPoint1
-通过tag1，tag3，组合能查询到datapoint1
-通过tag2，tag3，组合能查询到datapoint1
-通过tag1，tag2，tag3，组合能查询到datapoint1.
++ 通过tag1，能查询到DataPoint1和datapoint2，
++ 通过tag2，能查询到DataPoint1
++ 通过tag3，能查询到DataPoint1
++ 通过tag1，tag2，组合能查询到DataPoint1
++ 通过tag1，tag3，组合能查询到datapoint1
++ 通过tag2，tag3，组合能查询到datapoint1
++ 通过tag1，tag2，tag3，组合能查询到datapoint1.
 
 ### 删除：
 
