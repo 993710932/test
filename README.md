@@ -124,9 +124,24 @@ metricBuilder.addMetric("metric1").addTag("c","c").addDataPoint(long,2.0);
 **So 一个项目中；最好不要同时用long和double两种类型，要不然同一个点会出现两个数据，会很麻烦的。页面查询的时候不能区分，不过，通过代码查询出来的是能看到value的类型。…………最好统一一种形式，都用double，这样如果值错了也是可以直接用double替换的（删除的效率不高，数据量大了特别明显，尽量别用）。**
 
 
-聚合器Aggregator 这块儿是个大头儿，里面细节挺多的。
+
 
 <img src="https://github.com/993710932/use-KairosDB-Client/blob/master/metric.jpg"/>
+如图所示，metric，tag，DataPoint的关系大概就是这样，只是个人的逻辑图，并不代表真实的关系。
+
+查询：
+通过tag1，能查询到DataPoint1和datapoint2，
+通过tag2，能查询到DataPoint1
+通过tag3，能查询到DataPoint1
+通过tag1，tag2，组合能查询到DataPoint1
+通过tag1，tag3，组合能查询到datapoint1
+通过tag2，tag3，组合能查询到datapoint1
+通过tag1，tag2，tag3，组合能查询到datapoint1.
+删除：
+删除跟查询的对应关系一样。不过只删除datapoint，不删除tag，tag会保留。
+
+
+聚合器Aggregator 这块儿是个大头儿，里面细节挺多的。
 
 
 
