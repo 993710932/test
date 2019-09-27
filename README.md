@@ -126,7 +126,7 @@ metricBuilder.addMetric("metric1").addTag("c","c").addDataPoint(long,2.0);
 
 聚合器Aggregator 这块儿是个大头儿，里面细节挺多的。
 
-
+![alt](../1569568668860.jpg title)
 
 
 
